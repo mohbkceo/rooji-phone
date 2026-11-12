@@ -1,0 +1,11 @@
+export type User = {id:string;name:string;email:string;phone:string;role:'admin'|'customer';password:string};
+export type Category = {id:string;slug:string;name:string;image:string};
+export type Variant = {id:string; product_id:string;label:string;price:number;sale:number|null;stock:number;image:string;active:number;color:string;size:string;storage:string};
+export type Product = {id:string;slug:string;name:string;category:string;brand:string;description:string;specs:string;images:string;status:string;featured:number;seo_title:string;seo_description:string;created:string;updated:string};
+export type CatalogProduct = Product & {category_name:string;category_slug:string;price:number|null;available:number;image:string};
+export type ProductDetail = CatalogProduct & {variants:Variant[]};
+export type Order = {id:string;ref:string;user_id:string|null;request_id:string|null;name:string;phone:string;delivery:'delivery'|'pickup';payment:string;wilaya:string;commune:string;address:string;note:string;state:string;subtotal:number;shipping:number;total:number;internal:string;idempotency:string|null;fingerprint:string|null;created:string;updated:string};
+export type Item = {order_id:string;variant_id:string|null;title:string;variant:string;price:number;quantity:number};
+export type RequestRecord = {id:string;ref:string;kind:'repair'|'product';user_id:string|null;name:string;phone:string;state:string;details:string;images:string;quote:number|null;quote_note:string;decision:string;diagnostic:string;technician:string;internal:string;created:string;updated:string};
+export type Details = {brand?:string;model?:string;issue?:string;arrangement?:string;product?:string;variant?:string;quantity?:number;description?:string};
+export type History = {state:string;note:string;created:string};

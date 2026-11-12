@@ -1,0 +1,68 @@
+.admin-shell { @apply min-h-dvh bg-subtle lg:grid lg:grid-cols-[14rem_minmax(0,1fr)]; }
+.admin-sidebar {
+  @apply grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 border-b border-line bg-white p-3
+    lg:sticky lg:top-0 lg:flex lg:h-dvh lg:flex-col lg:items-stretch lg:gap-4 lg:overflow-auto lg:border-r lg:border-b-0 lg:p-4;
+}
+.admin-label { @apply hidden px-3 text-xs font-semibold tracking-widest text-muted lg:block; }
+.admin-nav { @apply col-span-full flex gap-1 overflow-x-auto p-1 lg:grid; }
+.admin-nav a, .admin-bottom a, .admin-bottom button {
+  @apply flex min-h-11 shrink-0 items-center gap-2 whitespace-nowrap rounded-control px-3 text-sm font-medium no-underline
+    motion-safe:transition-colors hover:bg-surface;
+}
+.admin-nav a[aria-current] { @apply bg-brand-tint text-brand-deep; }
+.admin-bottom { @apply col-start-2 row-start-1 flex lg:mt-auto lg:grid lg:gap-1; }
+.admin-bottom a, .admin-bottom button { @apply min-w-11 justify-center px-2 lg:w-full lg:justify-start lg:px-3; }
+.admin-main { @apply mx-auto w-full min-w-0 max-w-[96rem] p-4 sm:p-6 xl:p-10; }
+.admin-head { @apply mb-6 flex flex-wrap items-end justify-between gap-4; }
+.admin-head h1 { @apply mt-1 mb-0 text-heading; }
+.admin-auth { @apply grid min-h-dvh place-items-center bg-subtle p-4; }
+.admin-auth .panel { @apply w-full max-w-md sm:p-8; }
+.admin-auth h1 { @apply my-6 text-section; }
+.admin-section { @apply my-4; }
+.admin-section .empty { @apply min-h-20; }
+.admin-columns { @apply grid gap-4 xl:grid-cols-2; }
+.admin-columns > .admin-section { @apply m-0; }
+.detail-columns { @apply items-start; }
+.metrics { @apply my-4 grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4; }
+.metric { @apply flex flex-col gap-2 max-sm:p-3; }
+.metric span { @apply text-sm text-muted; }
+.metric strong { @apply text-xl leading-tight tracking-tight wrap-anywhere md:text-2xl; }
+.table-wrap { @apply w-full overflow-auto; }
+.table-wrap table { @apply w-full border-collapse text-left text-sm; }
+.table-wrap :is(th, td) { @apply border-b border-line px-3 py-2 align-middle whitespace-nowrap; }
+.table-wrap th { @apply bg-subtle text-xs font-semibold text-muted; }
+.table-wrap td small { @apply block text-muted; }
+.row-link { @apply inline-flex min-h-6 items-center font-semibold text-brand-deep hover:underline; }
+.list-filter { @apply mb-4 flex flex-wrap items-end gap-3; }
+.list-filter > :is(input, select) { @apply w-auto max-w-full; }
+.bars { @apply grid gap-3; }
+.bars li > div:first-child { @apply flex justify-between gap-3 text-sm; }
+.bar-track { @apply mt-1 h-2 overflow-hidden rounded-full bg-surface; }
+.bar-track i { @apply block h-full rounded-full bg-brand; }
+.definition { @apply mb-2 grid grid-cols-[minmax(5.25rem,.6fr)_1.4fr] gap-2 text-sm; }
+.definition dt { @apply text-muted; }
+.definition dd { @apply m-0 wrap-anywhere; }
+.definition a { @apply underline; }
+.admin-gallery { @apply mt-4 grid grid-cols-3 gap-2; }
+.admin-gallery a { @apply aspect-square overflow-hidden rounded-control bg-surface; }
+.admin-gallery img { @apply size-full object-cover; }
+.product-editor { @apply max-w-4xl; }
+.product-editor .panel { @apply grid gap-3; }
+.product-editor :is(h2, h3, p) { @apply m-0; }
+.product-editor details > .field, .product-editor details > div:not(.image-editor-grid) { @apply mt-2; }
+.variant-editor { @apply grid gap-2 rounded-card border border-line bg-subtle p-4; }
+.variant-editor .section-head { @apply mb-0; }
+.variant-values { @apply grid grid-cols-2 gap-2 sm:grid-cols-3; }
+.seo-preview { @apply grid gap-1 rounded-control bg-surface p-3 text-ink; }
+.seo-preview small { @apply wrap-anywhere text-muted; }
+.dropzone { @apply grid min-w-0 justify-items-center gap-2 rounded-control border border-dashed border-control bg-subtle p-4; }
+.dropzone label { @apply flex items-center gap-2 text-sm font-semibold; }
+.dropzone input { @apply w-full max-w-xs; }
+.dropzone small { @apply text-muted; }
+.image-editor-grid { @apply mt-3 grid grid-cols-[repeat(auto-fill,minmax(8rem,1fr))] gap-2; }
+.image-editor-grid > div { @apply overflow-hidden rounded-control border border-line bg-surface; }
+.image-editor-grid img { @apply h-24 w-full object-contain; }
+.image-controls { @apply flex flex-wrap items-center gap-1 p-1; }
+.image-controls .icon-link { @apply size-9; }
+.category-settings { @apply border-t border-line py-2; }
+.category-settings form { @apply mt-2; }

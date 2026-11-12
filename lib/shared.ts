@@ -1,0 +1,11 @@
+export const orderStates = ['Nouvelle','Confirmée','En préparation','Expédiée','Livrée','Annulée'] as const;
+export const repairStates = ['Nouvelle','Diagnostic','Devis','En réparation','Prête','Terminée','Annulée'] as const;
+export const requestStates = ['Reçue','En étude','Devis','Acceptée','Refusée','Terminée'] as const;
+export const issues = ['Écran','Batterie','Charge','Caméra','Logiciel','Autre'] as const;
+export const wilayas = 'Adrar|Chlef|Laghouat|Oum El Bouaghi|Batna|Béjaïa|Biskra|Béchar|Blida|Bouira|Tamanrasset|Tébessa|Tlemcen|Tiaret|Tizi Ouzou|Alger|Djelfa|Jijel|Sétif|Saïda|Skikda|Sidi Bel Abbès|Annaba|Guelma|Constantine|Médéa|Mostaganem|M’Sila|Mascara|Ouargla|Oran|El Bayadh|Illizi|Bordj Bou Arréridj|Boumerdès|El Tarf|Tindouf|Tissemsilt|El Oued|Khenchela|Souk Ahras|Tipaza|Mila|Aïn Defla|Naâma|Aïn Témouchent|Ghardaïa|Relizane|Timimoun|Bordj Badji Mokhtar|Ouled Djellal|Béni Abbès|In Salah|In Guezzam|Touggourt|Djanet|El M’Ghair|El Meniaa'.split('|');
+export const money = (value:number) => new Intl.NumberFormat('fr-DZ',{maximumFractionDigits:2}).format(value / 100)+' DA';
+export const asDzd = (value:number|null) => value === null ? '' : String(value/100);
+export const formatDate = (value:string) => new Intl.DateTimeFormat('fr-DZ',{dateStyle:'medium',timeStyle:'short',timeZone:'Africa/Algiers'}).format(new Date(value));
+export const slugify = (value:string) => value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,100);
+export type CartLine = {id:string; name:string; label:string; slug:string; price:number; qty:number; image?:string};
+export type ActionState = {error?:string; success?:string};
