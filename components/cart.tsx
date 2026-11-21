@@ -70,7 +70,7 @@ export function Checkout({pickup,delivery,fee,identity,keyValue,address}:{pickup
  if(!result || !('lines' in result))return <Empty title={result?.error||'Vérification du panier…'}>{result?.error&&<><button className="button secondary" onClick={()=>setRetry(retry+1)}>Réessayer</button><Link href="/panier">Modifier le panier</Link></>}</Empty>;
  const shipping=method==='delivery'?fee:0,total=result.subtotal+shipping;
  return <div className="cart-grid">
-  <div className="panel"><ActionForm action={placeOrder} label="Confirmer la commande">
+  <div className="panel"><ActionForm protect action={placeOrder} label="Confirmer la commande">
    <input type="hidden" name="cart" value={cart}/><input type="hidden" name="expectedTotal" value={total}/><input type="hidden" name="key" value={keyValue}/>
    <div className="form-grid"><Field label="Nom"><input name="name" autoComplete="name" required maxLength={100} defaultValue={identity?.name}/></Field><Field label="Téléphone"><input name="phone" type="tel" autoComplete="tel" required maxLength={30} defaultValue={identity?.phone}/></Field></div>
    <Field label="Remise"><select name="delivery" value={method} onChange={e=>setMethod(e.target.value==='pickup'?'pickup':'delivery')}>{pickup&&<option value="pickup">Retrait en boutique</option>}{delivery&&<option value="delivery">Livraison</option>}</select></Field>
@@ -90,5 +90,5 @@ export function ClearCart({reference}:{reference:string}){
 }
 export function BuyButtons({line,max}:{line:CartLine;max:number}){
  const router=useRouter(); const [notice,setNotice]=useState('');
- return <><div className="actions"><button className="button primary" disabled={max<1} onClick={()=>{addToCart(line,max);setNotice('Article ajouté au panier.');}}>Ajouter au panier</button><button className="button secondary" disabled={max<1} onClick={()=>{addToCart(line,max);router.push('/commande');}}>Commander</button></div><div className="mt-1 min-h-6 text-sm text-green-900" role="status">{notice}</div></>;
+ return <><div className="actions"><button className="button primary" disabled={max<1} onClick={()=>{addToCart(line,max);setNotice('Article ajouté au panier.');}}>Ajouter au panier</button><button className="button secondary" disabled={max<1} onClick={()=>{addToCart(line,max);router.push('/commande');}}>Commander</button></div><div className="mt-2 flex min-h-11 flex-wrap items-center gap-x-4 text-sm"><span className="text-green-900" role="status">{notice}</span>{notice&&<Link className="text-link" href="/panier">Voir le panier</Link>}</div></>;
 }

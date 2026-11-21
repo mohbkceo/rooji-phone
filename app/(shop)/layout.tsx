@@ -4,6 +4,7 @@ import {Brand} from '@/components/ui';
 import {MobileMenu,ShopNav} from '@/components/mobile-menu';
 import {CartProvider,CartIcon} from '@/components/cart';
 import {settings} from '@/lib/catalog';
+import {ShopUtilityLink} from '@/components/navigation';
 
 export const dynamic='force-dynamic';
 
@@ -11,7 +12,7 @@ export default function ShopLayout({children}:{children:React.ReactNode}) {
  const s=settings();
  const hasContact=s.phone||s.email||s.instagram||s.facebook;
  return <CartProvider>
-  <header className="relative z-10 border-b border-line bg-white">
+  <header className="shop-header">
    <div className="shell flex min-h-16 items-center justify-between gap-0 md:grid md:min-h-18 md:grid-cols-[1fr_auto_1fr] md:gap-4">
     <div className="flex min-w-0 items-center min-[375px]:gap-1">
      <MobileMenu/>
@@ -19,8 +20,8 @@ export default function ShopLayout({children}:{children:React.ReactNode}) {
     </div>
     <ShopNav/>
     <div className="flex shrink-0 items-center justify-end sm:gap-1">
-     <Link className="icon-link" href="/catalogue#recherche" aria-label="Rechercher"><Search size={20} aria-hidden="true"/></Link>
-     <Link className="icon-link" href="/compte" aria-label="Compte"><UserRound size={20} aria-hidden="true"/></Link>
+     <ShopUtilityLink href="/catalogue#recherche" label="Rechercher"><Search size={20} aria-hidden="true"/></ShopUtilityLink>
+     <ShopUtilityLink href="/compte" label="Compte"><UserRound size={20} aria-hidden="true"/></ShopUtilityLink>
      <CartIcon/>
     </div>
    </div>

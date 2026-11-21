@@ -1,13 +1,17 @@
 'use client';
-import {startTransition,useActionState} from 'react';
+import {startTransition,useActionState,useEffect,useRef} from 'react';
 import type {ActionState} from '@/lib/shared';
+import {useUnsavedForm} from './use-unsaved-form';
 
 export function FormMessage({state}:{state:ActionState}) {
  return <div aria-live="polite">{state.error&&<p className="form-error" role="alert">{state.error}</p>}{state.success&&<p className="form-success" role="status">{state.success}</p>}</div>;
 }
-export function ActionForm({action,children,label='Enregistrer',className='form',disabled=false}:{action:(state:ActionState,form:FormData)=>Promise<ActionState>;children:React.ReactNode;label?:string;className?:string;disabled?:boolean}){
+export function ActionForm({action,children,label='Enregistrer',className='form',disabled=false,protect=false}:{action:(state:ActionState,form:FormData)=>Promise<ActionState>;children:React.ReactNode;label?:string;className?:string;disabled?:boolean;protect?:boolean}){
  const [state,submit,pending]=useActionState(action,{});
- return <form action={submit} className={className} onSubmit={event=>{
+ const form=useRef<HTMLFormElement>(null);
+ const markSaved=useUnsavedForm(form,protect,pending);
+ useEffect(()=>{if(state.success)markSaved();},[state,markSaved]);
+ return <form ref={form} action={submit} className={className} aria-busy={pending} onSubmit={event=>{
   event.preventDefault();
   const data=new FormData(event.currentTarget,(event.nativeEvent as SubmitEvent).submitter);
   startTransition(()=>submit(data));

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import {ArrowRight, ImageOff} from 'lucide-react';
+import {ImageOff} from 'lucide-react';
 import {imageUrl,widths} from '@/lib/image-url';
 import {money} from '@/lib/shared';
 import type {CatalogProduct} from '@/lib/types';
@@ -20,10 +20,10 @@ export function Photo({asset,alt,sizes='(max-width: 620px) 90vw, 40vw',priority=
 }
 
 export function ButtonLink({href,children,secondary=false}:{href:string;children:React.ReactNode;secondary?:boolean}) {
- return <Link className={'button '+(secondary?'secondary':'primary')} href={href}>{children}{!secondary&&<ArrowRight size={17} aria-hidden="true"/>}</Link>;
+ return <Link className={'button '+(secondary?'secondary':'primary')} href={href}>{children}</Link>;
 }
 export function TextLink({href,children}:{href:string;children:React.ReactNode}) {
- return <Link className="text-link" href={href}>{children}<ArrowRight size={15} aria-hidden="true"/></Link>;
+ return <Link className="text-link" href={href}>{children}</Link>;
 }
 export function Empty({title,children}:{title:string;children?:React.ReactNode}) {
  return <div className="empty"><strong>{title}</strong>{children}</div>;
@@ -33,11 +33,12 @@ export function Badge({state}:{state:string}) {
  return <span className={'badge '+tone}>{state}</span>;
 }
 export function Breadcrumb({items}:{items:{label:string;href?:string}[]}) {
- return <nav aria-label="Fil d’Ariane" className="mb-5 flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-sm text-muted">
-  <Link className="inline-flex min-h-6 items-center hover:text-brand-deep hover:underline" href="/">Accueil</Link>
-  {items.map(item=><span className="inline-flex min-w-0 items-baseline gap-2" key={item.label}><span aria-hidden="true">/</span>{item.href?
-   <Link className="inline-flex min-h-6 items-center wrap-anywhere hover:text-brand-deep hover:underline" href={item.href}>{item.label}</Link>:
-   <span className="wrap-anywhere text-ink" aria-current="page">{item.label}</span>}</span>)}
+ return <nav aria-label="Fil d’Ariane" className="breadcrumbs mb-5"><ol>
+  <li><Link href="/">Accueil</Link></li>
+  {items.map(item=><li key={item.label}>{item.href?
+   <Link href={item.href}>{item.label}</Link>:
+   <span aria-current="page">{item.label}</span>}</li>)}
+ </ol>
  </nav>;
 }
 
@@ -55,7 +56,6 @@ export function ProductGrid({products,heading:Heading='h3'}:{products:CatalogPro
       {p.price!==null&&!p.available&&<p className="mb-1 text-xs text-muted">Rupture de stock</p>}
       <div className="flex items-end justify-between gap-1">
        <strong className="text-sm leading-snug wrap-anywhere sm:text-base">{p.price===null?'Sur demande':money(p.price)}</strong>
-       <ArrowRight size={16} className="mb-0.5 shrink-0 text-muted group-hover:text-brand-deep" aria-hidden="true"/>
       </div>
      </div>
     </div>

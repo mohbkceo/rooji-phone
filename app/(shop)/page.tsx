@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import {ArrowRight} from 'lucide-react';
 import {categories,catalog,settings} from '@/lib/catalog';
 import {Photo,ButtonLink,TextLink,ProductGrid,Empty} from '@/components/ui';
 import {photos} from '@/lib/editorial';
@@ -54,7 +53,7 @@ export default function Home(){
        <Photo asset={tile.image} alt="" className="size-full object-cover" sizes="(max-width: 599px) 45vw, (max-width: 1023px) 30vw, (max-width: 1375px) 18vw, 245px"/>
       </div>
       <span className="flex min-h-12 flex-1 items-center justify-between gap-1 px-3 py-2 text-sm font-semibold wrap-anywhere sm:px-4">
-       {tile.name}<ArrowRight size={16} className="shrink-0 text-muted group-hover:text-brand-deep" aria-hidden="true"/>
+       {tile.name}
       </span>
      </Link>
     </li>)}

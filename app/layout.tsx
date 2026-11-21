@@ -1,5 +1,6 @@
 import type {Metadata} from 'next';
 import {siteURL} from '@/lib/seo';
+import {NavigationProvider} from '@/components/navigation';
 import './globals.css';
 export const metadata:Metadata={
  metadataBase:siteURL,
@@ -8,5 +9,5 @@ export const metadata:Metadata={
  icons:{icon:'/brand/logo.png'},
 };
 export default function Layout({children}:{children:React.ReactNode}){
- return <html lang="fr-DZ"><body><a className="fixed top-3 left-3 z-50 -translate-y-[200%] rounded-control bg-ink px-4 py-3 text-sm font-semibold text-white focus:translate-y-0" href="#contenu">Aller au contenu</a>{children}</body></html>;
+ return <html lang="fr-DZ"><body><a className="skip-link" href="#contenu">Aller au contenu</a><NavigationProvider>{children}</NavigationProvider></body></html>;
 }

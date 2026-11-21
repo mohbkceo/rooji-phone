@@ -4,7 +4,8 @@ import {lookup,history} from '@/lib/access';
 import {orderItems} from '@/lib/orders';
 import {get} from '@/lib/db';
 import {settings} from '@/lib/catalog';
-import {Badge} from '@/components/ui';
+import {Badge,Breadcrumb} from '@/components/ui';
+import {BackLink} from '@/components/navigation';
 import {CopyLink} from '@/components/customer-forms';
 import {ActionForm} from '@/components/forms';
 import {ClearCart} from '@/components/cart';
@@ -26,7 +27,7 @@ export default async function Page({params,searchParams}:{params:Promise<{ref:st
  const pickup=order?.delivery==='pickup'?settings().address:'';
  return <div className="shell page narrow">
   {order&&fresh&&<ClearCart reference={ref}/>}
-  <span className="eyebrow">{fresh?'ENREGISTRÉ':req?.kind==='repair'?'SUIVI RÉPARATION':req?'SUIVI DEMANDE':'SUIVI COMMANDE'}</span>
+  <BackLink fallback="/suivi">Retour au suivi</BackLink><Breadcrumb items={[{label:'Suivi',href:'/suivi'},{label:ref}]}/><span className="eyebrow">{fresh?'ENREGISTRÉ':req?.kind==='repair'?'SUIVI RÉPARATION':req?'SUIVI DEMANDE':'SUIVI COMMANDE'}</span>
   <h1>{fresh?(order?'Commande reçue.':'Demande reçue.'):(order?'Votre commande':req?.kind==='repair'?'Votre réparation':'Votre demande')}</h1>
   <section className="panel tracking-summary"><div className="section-head"><div><span className="muted">Référence</span><strong className="reference">{ref}</strong></div><Badge state={record.state}/></div>
    {validToken&&<div className="actions"><CopyLink/></div>}{fresh&&<p className="muted">Conservez ce lien privé pour revenir ici.</p>}

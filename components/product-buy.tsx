@@ -25,8 +25,8 @@ export function ProductBuy({product,initial}:{product:ProductDetail;initial?:str
     setSelected(e.target.value);setActive(next?.image||images[0]||'');setQuantity(1);
    }}>{product.variants.map(v=><option key={v.id} value={v.id}>{v.label}{v.stock?'':' — épuisée'}</option>)}</select></label>}
    {variant&&max>0&&price!==undefined?<><label className="field my-3 max-w-24"><span>Quantité</span><input type="number" min={1} max={max} value={quantity} onChange={e=>setQuantity(Math.max(1,Math.min(max,e.target.valueAsNumber||1)))}/></label>
-    <BuyButtons key={variant.id} line={{id:variant.id,name:product.name,label:variant.label,slug:product.slug,price,qty:quantity,image:variant.image||images[0]}} max={max}/></>:<Link className="button primary" href={'/demande-produit?modele='+encodeURIComponent(product.name)+(variant?'&variante='+encodeURIComponent(variant.label):'')}>Demander</Link>}
-   <div className="mt-4 border-t border-line pt-5 wrap-anywhere"><p>{product.description}</p>{product.specs&&<details open><summary className="mb-2 min-h-8 font-semibold">Caractéristiques</summary><div className="preformatted">{product.specs}</div></details>}</div>
+    <BuyButtons key={variant.id} line={{id:variant.id,name:product.name,label:variant.label,slug:product.slug,price,qty:quantity,image:variant.image||images[0]}} max={max}/></>:<Link className="button primary mt-4" href={'/demande-produit?modele='+encodeURIComponent(product.name)+(variant?'&variante='+encodeURIComponent(variant.label):'')}>Demander ce modèle</Link>}
+   <div className="mt-5 max-w-prose border-t border-line pt-5 leading-relaxed wrap-anywhere"><p>{product.description}</p>{product.specs&&<details open><summary className="mb-2 min-h-8 font-semibold">Caractéristiques</summary><div className="preformatted">{product.specs}</div></details>}</div>
   </div>
  </div>;
 }
