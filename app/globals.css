@@ -28,7 +28,7 @@
   --text-hero: clamp(2.5rem, 5vw, 4rem);
   --text-hero--line-height: 1.04;
   --ease-enter: cubic-bezier(.2, .65, .3, 1);
-  --animate-enter: enter 360ms var(--ease-enter) both;
+  --animate-enter: enter 220ms var(--ease-enter) both;
   --animate-photo: photo-in 300ms var(--ease-enter) both;
   --animate-menu: menu 180ms var(--ease-enter) both;
 
@@ -49,9 +49,10 @@
 }
 
 @layer base {
-  html { color-scheme: light; }
+  html { color-scheme: light; scroll-padding-block-start: 6rem; }
   body { @apply bg-white font-sans text-base text-ink antialiased; }
-  main { @apply min-w-0; }
+  main { @apply min-w-0; overflow-x: clip; }
+  :is(h1, h2, h3, [tabindex], input, select, textarea, button, a) { scroll-margin-block: 6rem 2rem; }
   :focus-visible { @apply outline-2 outline-offset-3 outline-brand-deep; }
   h1, h2, h3 { @apply font-semibold tracking-tight wrap-break-word; }
   h1 { @apply mb-5 text-heading; }
@@ -77,6 +78,7 @@
     @apply inline-flex size-11 shrink-0 items-center justify-center rounded-full text-ink
       motion-safe:transition-colors motion-safe:duration-150 hover:bg-surface;
   }
+  .icon-link[data-active] { @apply bg-brand-tint text-brand-deep; }
   .button {
     @apply inline-flex min-h-11 w-fit max-w-full items-center justify-center gap-2 rounded-control
       border border-transparent px-4 py-2.5 text-center text-sm leading-snug font-semibold
@@ -145,7 +147,7 @@
   .footer-links { @apply flex min-w-0 flex-col items-start; }
   .footer-links strong { @apply mb-2 font-semibold; }
   .footer-links a {
-    @apply flex min-h-8 max-w-full items-center wrap-anywhere text-muted underline decoration-transparent
+    @apply flex min-h-11 max-w-full items-center wrap-anywhere text-muted underline decoration-transparent
       underline-offset-4 motion-safe:transition-colors hover:text-brand-deep hover:decoration-current;
   }
   .cart-grid, .account-grid {
@@ -156,4 +158,33 @@
   .service-grid {
     @apply grid items-start gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-12;
   }
+  .skip-link { @apply fixed top-3 start-3 z-50 -translate-y-[200%] rounded-control bg-ink px-4 py-3 text-sm font-semibold text-white focus:translate-y-0; }
+  .shop-header { @apply sticky top-0 z-20 border-b border-line bg-white; }
+  .mobile-navigation { max-block-size: calc(100dvh - 4rem); overflow-y: auto; overscroll-behavior: contain; }
+  .navigation-pending { @apply pointer-events-none absolute inset-x-3 bottom-1 h-0.5 bg-current opacity-0; }
+  .navigation-pending[data-pending] { @apply opacity-100; }
+  .breadcrumbs { @apply min-w-0 text-sm text-muted; }
+  .breadcrumbs ol { @apply flex flex-wrap items-center gap-x-2 gap-y-0; }
+  .breadcrumbs li { @apply inline-flex min-w-0 items-center gap-2; }
+  .breadcrumbs li + li::before { content: '/'; @apply text-muted; }
+  .breadcrumbs a { @apply inline-flex min-h-11 items-center underline decoration-transparent underline-offset-4 hover:text-brand-deep hover:decoration-current; }
+  .breadcrumbs [aria-current] { @apply py-2 text-ink wrap-anywhere; }
+  .back-link { @apply mb-1 inline-flex min-h-11 max-w-full items-center rounded-control text-sm font-semibold text-brand-deep underline underline-offset-4; }
+  .wayfinding { @apply mb-5; }
+  .page-heading { @apply mb-6; }
+  .page-heading h1 { @apply mt-2 mb-0; }
+  .category-navigation { @apply mb-5 flex flex-wrap gap-2; }
+  .category-navigation a { @apply inline-flex min-h-11 items-center rounded-full border border-line px-4 py-2 text-sm font-medium hover:border-control hover:bg-subtle; }
+  .category-navigation a[aria-current] { @apply border-ink bg-ink text-white; }
+  .results-heading { @apply mt-5 mb-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-1; }
+  .results-heading p { @apply m-0 text-sm font-semibold; }
+  .repair-review { @apply grid gap-2 rounded-control bg-subtle p-4 text-sm; }
+  .repair-review div { @apply flex flex-wrap justify-between gap-x-4 gap-y-1; }
+  .repair-review dt { @apply text-muted; }
+  .repair-review dd { @apply m-0 font-medium wrap-anywhere; }
+}
+
+/* Motion is optional; this also covers legacy entrance and hover utilities. */
+@media (prefers-reduced-motion: reduce) {
+ *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }

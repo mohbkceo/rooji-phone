@@ -80,6 +80,15 @@ try{
  const png=await request('/photos/phone-640.png');
  assert.equal(png.status,200);
  assert.match(png.headers.get('content-type'),/image\/png/);
+ for(const path of ['/page-inconnue','/produit/produit-inconnu','/categorie/categorie-inconnue']){
+  const missing=await request(path);
+  assert.equal(missing.status,404,path);
+  const html=await missing.text();
+  assert.match(html,/Page introuvable/);
+  // Metadata-level notFound may send the shell through the RSC payload.
+  // Nested landmarks are verified in the browser after hydration.
+  if(path==='/page-inconnue')assert.equal([...html.matchAll(/id="contenu"/g)].length,1,'One skip-link destination');
+ }
  const locked=await request('/admin');
  assert.ok([303,307].includes(locked.status));
  assert.equal(locked.headers.get('location'),'/admin/connexion');

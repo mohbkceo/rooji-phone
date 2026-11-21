@@ -3,6 +3,7 @@ import {product,settings} from '@/lib/catalog';
 import {absolute,breadcrumbData,pageMeta} from '@/lib/seo';
 import {imageUrl} from '@/lib/image-url';
 import {Breadcrumb} from '@/components/ui';
+import {BackLink} from '@/components/navigation';
 import {ProductBuy} from '@/components/product-buy';
 import {JsonLd} from '@/components/json-ld';
 type Props={params:Promise<{slug:string}>;searchParams:Promise<{variante?:string}>};
@@ -26,5 +27,5 @@ export default async function Page({params,searchParams}:Props){
  }));
  const variesBy=(['color','size'] as const).filter(attr=>new Set(p.variants.map(v=>v[attr]).filter(Boolean)).size>1).map(attr=>'https://schema.org/'+attr);
  const group=p.variants.length>1?{'@type':'ProductGroup',name:p.name,productGroupID:p.id,description:p.description,image:images,...brand,...(variesBy.length?{variesBy}:{}),hasVariant:individual}:individual[0];
- return <div className="shell page"><JsonLd items={group&&images.length&&buyable?[crumbs,group]:[crumbs]}/><Breadcrumb items={[{label:'Catalogue',href:'/catalogue'},{label:p.category_name,href:category},{label:p.name}]}/><ProductBuy key={p.id+':'+(initial??'')} product={buyable?p:{...p,variants:p.variants.map(v=>({...v,stock:0}))}} initial={p.variants.some(v=>v.id===initial)?initial:undefined}/></div>;
+ return <div className="shell page"><JsonLd items={group&&images.length&&buyable?[crumbs,group]:[crumbs]}/><BackLink fallback={category}/><Breadcrumb items={[{label:'Catalogue',href:'/catalogue'},{label:p.category_name,href:category},{label:p.name}]}/><ProductBuy key={p.id+':'+(initial??'')} product={buyable?p:{...p,variants:p.variants.map(v=>({...v,stock:0}))}} initial={p.variants.some(v=>v.id===initial)?initial:undefined}/></div>;
 }
